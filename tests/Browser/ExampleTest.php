@@ -1,6 +1,6 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests;
+namespace Amirami\LivewireDataTables\Tests\Browser;
 
 class ExampleTest extends TestCase
 {
