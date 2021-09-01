@@ -1,6 +1,6 @@
 {
     "name": "amirami/livewire-datatables",
-    "description": "desc",
+    "description": "Livewire DataTables components for back-end. Modular, easy to use, with tons of features.",
     "keywords": [
         "amirami",
         "laravel",
@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
+        "illuminate/cache": "^8.0",
         "illuminate/contracts": "^8.0",
         "illuminate/database": "^8.0",
         "illuminate/support": "^8.0",
