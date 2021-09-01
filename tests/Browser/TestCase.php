@@ -39,8 +39,13 @@ class TestCase extends Orchestra
         $this->tweakApplication(function () {
             collect(File::allFiles(__DIR__))
                 ->map(function ($file) {
-                    return 'Amirami\\LivewireDataTables\\Tests\\Browser\\'
-                        . $this->str($file->getRelativePathname())->before('.php')->replace('/', '\\');
+                    $namespacePrefix = 'Amirami\\LivewireDataTables\\Tests\\Browser\\';
+
+                    if (is_null($pathname = $file->getRelativePathname())) {
+                        return $namespacePrefix . Str::before('.php', '');
+                    }
+
+                    return $namespacePrefix . Str::of($pathname)->before('.php')->replace('/', '\\');
                 })
                 ->filter(function ($computedClassName) {
                     return class_exists($computedClassName);
@@ -142,20 +147,6 @@ class TestCase extends Orchestra
             'driver' => 'local',
             'root' => __DIR__ . '/downloads',
         ]);
-    }
-
-    private function str($string)
-    {
-        if (is_null($string)) {
-            return new class() {
-                public function __call($method, $params)
-                {
-                    return Str::$method(...$params);
-                }
-            };
-        }
-
-        return Str::of($string);
     }
 }
 
