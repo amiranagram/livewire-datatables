@@ -1,9 +1,9 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests;
+namespace Amirami\LivewireDataTables\Tests\Browser;
 
 use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Orchestra\Testbench\Dusk\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
