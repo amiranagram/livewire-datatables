@@ -147,7 +147,7 @@ class TestCase extends Orchestra
     private function str($string)
     {
         if (is_null($string)) {
-            return new class {
+            return new class() {
                 public function __call($method, $params)
                 {
                     return Str::$method(...$params);
