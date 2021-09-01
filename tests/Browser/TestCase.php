@@ -7,11 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 use Livewire\Component;
 use Livewire\LivewireServiceProvider;
 use Livewire\Macros\DuskBrowserMacros;
-use function Livewire\str;
 use Orchestra\Testbench\Dusk\Options as DuskOptions;
 use Orchestra\Testbench\Dusk\TestCase as Orchestra;
 use Sushi\Sushi;
@@ -39,7 +39,8 @@ class TestCase extends Orchestra
         $this->tweakApplication(function () {
             collect(File::allFiles(__DIR__))
                 ->map(function ($file) {
-                    return 'Amirami\\LivewireDataTables\\Tests\\Browser\\'.str($file->getRelativePathname())->before('.php')->replace('/', '\\');
+                    return 'Amirami\\LivewireDataTables\\Tests\\Browser\\'
+                        . $this->str($file->getRelativePathname())->before('.php')->replace('/', '\\');
                 })
                 ->filter(function ($computedClassName) {
                     return class_exists($computedClassName);
@@ -141,6 +142,20 @@ class TestCase extends Orchestra
             'driver' => 'local',
             'root' => __DIR__ . '/downloads',
         ]);
+    }
+
+    private function str($string)
+    {
+        if (is_null($string)) {
+            return new class {
+                public function __call($method, $params)
+                {
+                    return Str::$method(...$params);
+                }
+            };
+        }
+
+        return Str::of($string);
     }
 }
 
