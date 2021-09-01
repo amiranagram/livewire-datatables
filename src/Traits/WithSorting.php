@@ -28,7 +28,7 @@ trait WithSorting
             }
 
             $this->sorts[$field] = 'asc';
-            $this->resetPage();
+            $this->resetPageIfPossible();
 
             return;
         }
@@ -39,7 +39,7 @@ trait WithSorting
             }
 
             $this->sorts[$field] = 'desc';
-            $this->resetPage();
+            $this->resetPageIfPossible();
 
             return;
         }
@@ -48,19 +48,19 @@ trait WithSorting
             $this->reset('sorts');
 
             $this->sorts[$field] = 'asc';
-            $this->resetPage();
+            $this->resetPageIfPossible();
 
             return;
         }
 
         if ($this->multiColumnSorting) {
-            $this->resetPage();
+            $this->resetPageIfPossible();
             unset($this->sorts[$field]);
 
             return;
         }
 
-        $this->resetPage();
+        $this->resetPageIfPossible();
         $this->reset('sorts');
     }
 
@@ -71,6 +71,13 @@ trait WithSorting
     public function sortDir(string $column): ?string
     {
         return $this->sorts[$column] ?? null;
+    }
+
+    private function resetPageIfPossible(): void
+    {
+        if ($this->hasLivewireDataTablesTrait('pagination')) {
+            $this->resetPage();
+        }
     }
 
     /**

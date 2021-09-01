@@ -17,7 +17,7 @@ class Component extends DataTable
      */
     public function getQueryProperty(): Builder
     {
-        return Comment::query();
+        return Comment::query()->take(3);
     }
 
     /**
