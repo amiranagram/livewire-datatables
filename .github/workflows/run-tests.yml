@@ -15,6 +15,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         php: [7.4, 8.0]
         laravel: [8.*]
+        livewire: [2.*]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 8.*
@@ -40,7 +41,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "livewire/livewire:${{ matrix.livewire }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Setup dusk/chrome
