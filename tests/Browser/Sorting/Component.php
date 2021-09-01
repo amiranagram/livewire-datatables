@@ -27,6 +27,9 @@ class Component extends DataTable
      */
     public function render(): View
     {
-        return ViewFacade::file(__DIR__.'/view.blade.php');
+        $comments = $this->entries;
+
+        return ViewFacade::file(__DIR__.'/view.blade.php', compact('comments'))
+            ->layout('livewire-datatables::layout');
     }
 }
