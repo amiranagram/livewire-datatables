@@ -3,6 +3,7 @@
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
 use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -10,11 +11,10 @@ use Laravel\Dusk\Browser;
 use Livewire\Component;
 use Livewire\LivewireServiceProvider;
 use Livewire\Macros\DuskBrowserMacros;
-use Orchestra\Testbench\Dusk\TestCase as Orchestra;
-use Orchestra\Testbench\Dusk\Options as DuskOptions;
-use Sushi\Sushi;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use function Livewire\str;
+use Orchestra\Testbench\Dusk\Options as DuskOptions;
+use Orchestra\Testbench\Dusk\TestCase as Orchestra;
+use Sushi\Sushi;
 
 class TestCase extends Orchestra
 {
@@ -24,7 +24,7 @@ class TestCase extends Orchestra
             DuskOptions::withoutUI();
         }
 
-        Browser::mixin(new DuskBrowserMacros);
+        Browser::mixin(new DuskBrowserMacros());
 
         $this->afterApplicationCreated(function () {
             $this->cleanUp();
@@ -53,7 +53,7 @@ class TestCase extends Orchestra
             Route::get('/livewire-dusk/{component}', function ($component) {
                 $class = urldecode($component);
 
-                return app()->call(new $class);
+                return app()->call(new $class());
             })->middleware('web');
         });
     }
@@ -126,16 +126,16 @@ class TestCase extends Orchestra
 
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
         $app['config']->set('auth.providers.users.model', User::class);
 
         $app['config']->set('filesystems.disks.dusk-downloads', [
             'driver' => 'local',
-            'root'   => __DIR__ . '/downloads',
+            'root' => __DIR__ . '/downloads',
         ]);
     }
 }
@@ -146,13 +146,13 @@ class User extends Authenticatable
 
     protected $rows = [
         [
-            'name'     => 'Amir',
-            'email'    => 'me@amirrami.com',
+            'name' => 'Amir',
+            'email' => 'me@amirrami.com',
             'password' => '',
         ],
         [
-            'name'     => 'Bardh',
-            'email'    => 'you@amirrami.com',
+            'name' => 'Bardh',
+            'email' => 'you@amirrami.com',
             'password' => '',
         ],
     ];
