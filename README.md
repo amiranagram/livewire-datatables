@@ -7,4 +7,31 @@
 
 Livewire DataTables components for back-end. Modular, easy to use, with tons of features.
 
-Inspired by [Caleb's](https://github.com/calebporzio) [Livewire Screencasts](https://laravel-livewire.com/screencasts), dedicated to my friend [Bardhyl](https://github.com/bardh7).
+Inspired by [Caleb's](https://github.com/calebporzio) [Livewire Screencasts](https://laravel-livewire.com/screencasts), dedicated to my friend [Bardh](https://github.com/bardh7).
+
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [Amir Rami](https://github.com/amiranagram)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
