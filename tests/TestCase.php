@@ -2,8 +2,8 @@
 
 namespace Amirami\LivewireDataTables\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

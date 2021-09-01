@@ -22,8 +22,8 @@ trait WithSorting
      */
     public function sortBy($field): void
     {
-        if (!isset($this->sorts[$field])) {
-            if (!$this->multiColumnSorting) {
+        if (! isset($this->sorts[$field])) {
+            if (! $this->multiColumnSorting) {
                 $this->reset('sorts');
             }
 
@@ -34,7 +34,7 @@ trait WithSorting
         }
 
         if ($this->sorts[$field] === 'asc') {
-            if (!$this->multiColumnSorting) {
+            if (! $this->multiColumnSorting) {
                 $this->reset('sorts');
             }
 

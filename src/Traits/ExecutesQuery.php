@@ -22,7 +22,7 @@ trait ExecutesQuery
      */
     public function hydrateExecutesQuery(): void
     {
-        if (!$this->dataTableTraits) {
+        if (! $this->dataTableTraits) {
             $this->dataTableTraits = class_uses_recursive(static::class);
         }
     }
