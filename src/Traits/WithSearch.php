@@ -13,7 +13,7 @@ trait WithSearch
      * @var array
      */
     public $queryStringWithSearch = [
-        'search' => ['except' => '']
+        'search' => ['except' => ''],
     ];
 
     /**

@@ -22,7 +22,7 @@ trait WithPagination
      * @var array
      */
     public $queryStringWithPagination = [
-        'page' => ['except' => 1]
+        'page' => ['except' => 1],
     ];
 
     /**
