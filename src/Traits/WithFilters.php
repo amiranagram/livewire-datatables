@@ -14,7 +14,7 @@ trait WithFilters
     {
         return collect($this->getFilters())
             ->filter(function ($value, $key) {
-                return $key !== 'search' && $this->isFilterDirty($key);
+                return $this->isFilterDirty($key);
             })
             ->count();
     }

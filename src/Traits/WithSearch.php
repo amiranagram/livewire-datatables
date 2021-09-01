@@ -10,6 +10,31 @@ trait WithSearch
     public $search = '';
 
     /**
+     * @var array
+     */
+    public $queryStringWithSearch = [
+        'search' => ['except' => '']
+    ];
+
+    /**
+     * @return void
+     */
+    public function initializeWithSearch(): void
+    {
+        $this->search = request()->query('search', $this->search);
+    }
+
+    /**
+     * @return void
+     */
+    public function updatedSearch(): void
+    {
+        if (property_exists($this, 'page')) {
+            $this->resetPage();
+        }
+    }
+
+    /**
      * @return array|string[]
      */
     public function getSearchableColumns(): array
