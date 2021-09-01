@@ -55,6 +55,13 @@ class TestCase extends Orchestra
 
                 return app()->call(new $class());
             })->middleware('web');
+
+            app('session')->put('_token', 'this-is-a-hack-because-something-about-validating-the-csrf-token-is-broken');
+
+            app('config')->set('view.paths', [
+                __DIR__.'/views',
+                resource_path('views'),
+            ]);
         });
     }
 
@@ -111,9 +118,6 @@ class TestCase extends Orchestra
         ];
     }
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
     protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('view.paths', [

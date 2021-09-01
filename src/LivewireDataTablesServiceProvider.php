@@ -23,8 +23,6 @@ class LivewireDataTablesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningUnitTests()) {
-            $this->loadViewsFrom(__DIR__ . '/../tests/Browser', 'livewire-datatables');
-        }
+        //
     }
 }
