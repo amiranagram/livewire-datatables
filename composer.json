@@ -41,7 +41,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Amirami\\LivewireDataTables\\Tests\\": "tests"
+            "Amirami\\LivewireDataTables\\Tests\\": "tests/"
         }
     },
     "scripts": {
