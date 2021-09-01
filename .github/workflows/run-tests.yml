@@ -20,6 +20,8 @@ jobs:
         include:
           - laravel: 8.*
             testbench: ^6.6
+          - php: 8.0
+            livewire: ^2.3.3
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
