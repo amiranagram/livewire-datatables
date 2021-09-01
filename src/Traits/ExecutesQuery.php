@@ -2,12 +2,6 @@
 
 namespace Amirami\LivewireDataTables\Traits;
 
-/**
- * @mixin WithPagination
- * @mixin WithSearch
- * @mixin WithSorting
- * @mixin WithCachedRows
- */
 trait ExecutesQuery
 {
     /**
@@ -48,23 +42,23 @@ trait ExecutesQuery
         }
 
         if (in_array(WithCachedRows::class, $this->dataTableTraits, true)) {
-            return $this->applyCaching(app()->call([$this, 'getEntries']));
+            return $this->applyCaching(function () {
+                $this->getEntries();
+            });
         }
 
-        return app()->call([$this, 'getEntries']);
+        return $this->getEntries();
     }
 
     /**
-     * @return callable
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
      */
-    public function getEntries(): callable
+    protected function getEntries()
     {
-        return function () {
-            if (in_array(WithPagination::class, $this->dataTableTraits, true)) {
-                return $this->applyPagination($this->query);
-            }
+        if (in_array(WithPagination::class, $this->dataTableTraits, true)) {
+            return $this->applyPagination($this->query);
+        }
 
-            return $this->query->get();
-        };
+        return $this->query->get();
     }
 }
