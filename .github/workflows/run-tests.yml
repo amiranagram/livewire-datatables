@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         php: [7.4, 8.0]
         laravel: [8.*]
         livewire: [^2.3.3]
@@ -20,9 +20,6 @@ jobs:
         include:
           - laravel: 8.*
             testbench: ^6.6
-        exclude:
-          - php: 8.0
-            stability: prefer-lowest
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
