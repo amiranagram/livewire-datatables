@@ -15,13 +15,11 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         php: [7.4, 8.0]
         laravel: [8.*]
-        livewire: [2.*]
+        livewire: [^2.2.8]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 8.*
             testbench: ^6.6
-          - stability: prefer-lowest
-            livewire: ^2.2.8
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
