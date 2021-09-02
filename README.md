@@ -9,6 +9,37 @@ Livewire DataTables components for back-end. Modular, easy to use, with tons of 
 
 Inspired by [Caleb's](https://github.com/calebporzio) [Livewire Screencasts](https://laravel-livewire.com/screencasts), dedicated to my friend [Bardh](https://github.com/bardh7).
 
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require amirami/livewire-datatables
+```
+
+You can publish the config file with:
+```bash
+php artisan vendor:publish --provider="Amirami\LivewireDataTables\LivewireDataTablesServiceProvider" --tag="livewire-datatables-config"
+```
+
+This is the contents of the published config file:
+
+```php
+return [
+
+    'multi_column_sorting' => false,
+
+    'row_caching' => false,
+
+];
+```
+
+## Usage
+
+After creating your Livewire component, extend the component class with `Amirami\LivewireDataTables\DataTable`. The `DataTable` abstract class will ask you to implement `getQueryProperty` method. This is a computed property in Livewire which needs to return and instance of `Illuminate\Database\Eloquent\Builder` or `\Illuminate\Database\Eloquent\Relations\Relation`.
+
+This is the part where you will build the base of your query, with filters.
+
 ## Testing
 
 ```bash

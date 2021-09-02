@@ -7,12 +7,15 @@ trait WithRowCaching
     /**
      * @var bool
      */
-    public $cachedEntries = false;
+    protected $useCachedEntries = false;
 
     /**
-     * @var bool
+     * @return bool
      */
-    protected $useCachedEntries = false;
+    public function getRowCaching(): bool
+    {
+        return $this->rowCaching ?? config('livewire-datatables.row_caching');
+    }
 
     /**
      * @return void
@@ -29,6 +32,10 @@ trait WithRowCaching
      */
     public function applyCaching(callable $callback)
     {
+        if (! $this->getRowCaching()) {
+            return $callback();
+        }
+
         if ($this->useCachedEntries && cache()->has($cacheKey = $this->getCacheKey())) {
             return cache()->get($cacheKey);
         }

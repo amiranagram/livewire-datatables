@@ -5,16 +5,19 @@ namespace Amirami\LivewireDataTables\Traits;
 trait WithSorting
 {
     /**
-     * @var bool
-     */
-    public $multiColumnSorting = false;
-
-    /**
      * @var array
      */
     public $sorts = [
         //
     ];
+
+    /**
+     * @return bool
+     */
+    public function getMultiColumnSorting(): bool
+    {
+        return $this->multiColumnSorting ?? config('livewire-datatables.multi_column_sorting');
+    }
 
     /**
      * @param $field
@@ -23,7 +26,7 @@ trait WithSorting
     public function sortBy($field): void
     {
         if (! isset($this->sorts[$field])) {
-            if (! $this->multiColumnSorting) {
+            if (! $this->getMultiColumnSorting()) {
                 $this->reset('sorts');
             }
 
@@ -34,7 +37,7 @@ trait WithSorting
         }
 
         if ($this->sorts[$field] === 'asc') {
-            if (! $this->multiColumnSorting) {
+            if (! $this->getMultiColumnSorting()) {
                 $this->reset('sorts');
             }
 
@@ -44,7 +47,7 @@ trait WithSorting
             return;
         }
 
-        if ($this->sorts[$field] === 'desc' && ! $this->multiColumnSorting) {
+        if ($this->sorts[$field] === 'desc' && ! $this->getMultiColumnSorting()) {
             $this->reset('sorts');
 
             $this->sorts[$field] = 'asc';
@@ -53,7 +56,7 @@ trait WithSorting
             return;
         }
 
-        if ($this->multiColumnSorting) {
+        if ($this->getMultiColumnSorting()) {
             $this->resetPageIfPossible();
             unset($this->sorts[$field]);
 
