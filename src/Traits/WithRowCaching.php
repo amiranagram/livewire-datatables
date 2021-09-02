@@ -14,7 +14,9 @@ trait WithRowCaching
      */
     public function getRowCaching(): bool
     {
-        return $this->rowCaching ?? config('livewire-datatables.row_caching');
+        return property_exists($this, 'rowCaching')
+            ? $this->rowCaching
+            : config('livewire-datatables.row_caching');
     }
 
     /**

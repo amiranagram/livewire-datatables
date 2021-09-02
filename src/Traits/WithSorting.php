@@ -16,7 +16,9 @@ trait WithSorting
      */
     public function getMultiColumnSorting(): bool
     {
-        return $this->multiColumnSorting ?? config('livewire-datatables.multi_column_sorting');
+        return property_exists($this, 'multiColumnSorting')
+            ? $this->multiColumnSorting
+            : config('livewire-datatables.multi_column_sorting');
     }
 
     /**
