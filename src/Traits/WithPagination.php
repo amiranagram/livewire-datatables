@@ -14,11 +14,6 @@ trait WithPagination
     }
 
     /**
-     * @var int
-     */
-    public $perPage = 10;
-
-    /**
      * @var array
      */
     public $queryStringWithPagination = [
@@ -26,12 +21,22 @@ trait WithPagination
     ];
 
     /**
+     * @return int|null
+     */
+    public function getPerPage(): ?int
+    {
+        return property_exists($this, 'perPage')
+            ? $this->perPage
+            : null;
+    }
+
+    /**
      * @param Builder|QueryBuilder $query
      * @return LengthAwarePaginator
      */
     public function applyPagination($query): LengthAwarePaginator
     {
-        return $query->paginate($this->perPage);
+        return $query->paginate($this->getPerPage());
     }
 
     /**

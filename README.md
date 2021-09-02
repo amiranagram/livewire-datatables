@@ -34,11 +34,110 @@ return [
 ];
 ```
 
+This means that by default these two options are disabled. But you can enable them for individual components.
+
 ## Usage
 
 After creating your Livewire component, extend the component class with `Amirami\LivewireDataTables\DataTable`. The `DataTable` abstract class will ask you to implement `getQueryProperty` method. This is a computed property in Livewire which needs to return and instance of `Illuminate\Database\Eloquent\Builder` or `\Illuminate\Database\Eloquent\Relations\Relation`.
 
 This is the part where you will build the base of your query, with filters.
+
+```php
+namespace App\Http\Livewire;
+
+use App\Models\Post;
+use Amirami\LivewireDataTables\DataTable;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+
+class PostsIndex extends DataTable
+{
+    /**
+     * @inheritDoc
+     */
+    public function getQueryProperty(): Builder
+    {
+        return Post::query();
+    }
+
+    /**
+     * Render the component.
+     *
+     * @return View
+     */
+    public function render(): View
+    {
+        $posts = $this->entries;
+
+        return view('livewire.posts-index', compact('posts'));
+    }
+}
+```
+
+This is the most basic components without any datatable features. Although it is totally fine to use the datatable without any features, it kinda beats the purpose of this package. Now let's get onto the many features this package provides.
+
+### Pagination
+
+Pagination offers exactly the same features as Livewire's default one. It actually extends it. The only reason you'll have to use the pagination provided by this package is because Livewire's default one doesn't play nice with our other features.
+
+```php
+namespace App\Http\Livewire;
+
+use Amirami\LivewireDataTables\DataTable;
+use Amirami\LivewireDataTables\Traits\WithPagination;
+
+class PostsIndex extends DataTable
+{
+    use WithPagination;
+}
+```
+
+You can configure how many result you want to see per page as well. If not defined the paginator will pull the default number from the model class.
+
+```php
+namespace App\Http\Livewire;
+
+use Amirami\LivewireDataTables\DataTable;
+use Amirami\LivewireDataTables\Traits\WithPagination;
+
+class PostsIndex extends DataTable
+{
+    use WithPagination;
+    
+    // As a property.
+    public $perPage = 20;
+    
+    // Or as a method.
+    public function getPerPage(): ?int
+    {
+        if (auth()->user()->name === 'Bardh') {
+            return 69;
+        }
+        
+        return $this->perPage;
+    }
+}
+```
+
+For everything else about pagination check out the [Livewire's official documentation](https://laravel-livewire.com/docs/2.x/pagination).
+
+### Searching
+
+### Sorting
+
+### Filtering
+
+### Row Caching
+
+## Planned Features
+
+* Bulk Actions
+* Row Grouping
+* Front-end components (will most-likely be a separate package)
+
+## Showcase
+
+Check out cool datatables built with `livewire-datatables` [here](https://github.com/amiranagram/livewire-datatables/discussions/categories/show-and-tell), and don't forget to share your own 🙌.
 
 ## Testing
 
