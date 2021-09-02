@@ -11,9 +11,9 @@ class LivewireDataTablesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/../config/livewire-datatables.php', 'livewire-datatables');
     }
 
     /**
@@ -21,8 +21,12 @@ class LivewireDataTablesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/livewire-datatables.php.php' => config_path('livewire-datatables.php'),
+            ], 'livewire-datatables-config');
+        }
     }
 }
