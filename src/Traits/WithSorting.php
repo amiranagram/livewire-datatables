@@ -80,7 +80,7 @@ trait WithSorting
 
     private function resetPageIfPossible(): void
     {
-        if ($this->hasLivewireDataTablesTrait('pagination')) {
+        if ($this->isFeatureEnabled('pagination')) {
             $this->resetPage();
         }
     }

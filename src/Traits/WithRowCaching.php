@@ -32,7 +32,7 @@ trait WithRowCaching
      * @return \Illuminate\Contracts\Cache\Repository|\Illuminate\Support\HigherOrderTapProxy|mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException|\Exception
      */
-    public function applyCaching(callable $callback)
+    public function applyRowCaching(callable $callback)
     {
         if (! $this->getRowCaching()) {
             return $callback();

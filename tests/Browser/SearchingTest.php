@@ -16,21 +16,18 @@ class SearchingTest extends TestCase
                 ->assertSee('Amir')
                 ->assertSee('Bardh')
                 ->assertSee('George')
-
+                // Search for "Amir".
                 ->waitForLivewire()->type('@input', 'Amir')
-
                 ->assertSee('Amir')
                 ->assertDontSee('Bardh')
                 ->assertDontSee('George')
-
+                // Search for "Bardh".
                 ->waitForLivewire()->type('@input', 'Bardh')
-
                 ->assertSee('Bardh')
                 ->assertDontSee('Amir')
                 ->assertDontSee('George')
-
+                // Search for "a".
                 ->waitForLivewire()->type('@input', 'a')
-
                 ->assertSee('Amir')
                 ->assertSee('Bardh')
                 ->assertSee('George')
@@ -46,15 +43,13 @@ class SearchingTest extends TestCase
                 ->assertSee('Amir')
                 ->assertSee('Bardh')
                 ->assertSee('George')
-
+                // Search for "me@amirrami.com".
                 ->waitForLivewire()->type('@input', 'me@amirrami.com')
-
                 ->assertSee('Amir')
                 ->assertDontSee('Bardh')
                 ->assertDontSee('George')
-
+                // After removing the email column from searchable columns, we should see no results.
                 ->waitForLivewire()->click('@unsetEmailAsSearchable')
-
                 ->assertDontSee('Amir')
                 ->assertDontSee('Bardh')
                 ->assertDontSee('George')

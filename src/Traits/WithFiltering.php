@@ -2,29 +2,38 @@
 
 namespace Amirami\LivewireDataTables\Traits;
 
+use Livewire\Exceptions\PropertyNotFoundException;
+
 /**
  * @property-read int $filtersApplied
  */
 trait WithFiltering
 {
     /**
+     * @return void
+     * @throws PropertyNotFoundException
+     */
+    public function mountWithFiltering(): void
+    {
+        if (! property_exists($this, 'filters')) {
+            throw new PropertyNotFoundException('filters', static::getName());
+        }
+
+        if (method_exists($this, 'getFilters')) {
+            $this->filters = $this->getFilters();
+        }
+    }
+
+    /**
      * @return int
      */
     public function getFiltersAppliedProperty(): int
     {
-        return collect($this->getFilters())
+        return collect($this->filters)
             ->filter(function ($value, $key) {
                 return $this->isFilterDirty($key);
             })
             ->count();
-    }
-
-    /**
-     * @return array
-     */
-    public function getFilters(): array
-    {
-        return $this->filters ?? [];
     }
 
     /**

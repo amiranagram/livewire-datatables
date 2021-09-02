@@ -38,7 +38,7 @@ trait InteractsWithDataTableTraits
      * @param string $feature
      * @return bool
      */
-    public function hasLivewireDataTablesTrait(string $feature): bool
+    protected function isFeatureEnabled(string $feature): bool
     {
         return in_array($this->traitPrefix . Str::studly($feature), $this->dataTableTraits, true);
     }
@@ -47,7 +47,7 @@ trait InteractsWithDataTableTraits
      * @param string $trait
      * @return bool
      */
-    protected function isAmiramiLivewireDataTablesTrait(string $trait): bool
+    protected function isFirstPartyTrait(string $trait): bool
     {
         return Str::startsWith($trait, $this->traitPrefix);
     }

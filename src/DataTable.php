@@ -13,20 +13,19 @@ abstract class DataTable extends Component implements ComputesProperties
 
     /**
      * @inheritDoc
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function getEntriesProperty()
     {
-        if ($this->hasLivewireDataTablesTrait('searching')) {
+        if ($this->isFeatureEnabled('searching')) {
             $this->applySearching($this->query);
         }
 
-        if ($this->hasLivewireDataTablesTrait('sorting')) {
+        if ($this->isFeatureEnabled('sorting')) {
             $this->applySorting($this->query);
         }
 
-        if ($this->hasLivewireDataTablesTrait('row-caching')) {
-            return $this->applyCaching(function () {
+        if ($this->isFeatureEnabled('row-caching')) {
+            return $this->applyRowCaching(function () {
                 return $this->getEntries();
             });
         }
@@ -39,7 +38,7 @@ abstract class DataTable extends Component implements ComputesProperties
      */
     protected function getEntries()
     {
-        if ($this->hasLivewireDataTablesTrait('pagination')) {
+        if ($this->isFeatureEnabled('pagination')) {
             return $this->applyPagination($this->query);
         }
 
@@ -53,14 +52,14 @@ abstract class DataTable extends Component implements ComputesProperties
     {
         return collect($this->dataTableTraits ?? [])
             ->filter(function (string $trait) {
-                return $this->isAmiramiLivewireDataTablesTrait($trait);
+                return $this->isFirstPartyTrait($trait);
             })
             ->map(function ($trait) {
                 $traitName = Str::of($trait)
                     ->explode('\\')
                     ->last();
 
-                $callable = 'queryString' . $traitName;
+                $callable = Str::studly('queryString' . $traitName);
 
                 if (method_exists($this, $callable)) {
                     return $this->$callable();
