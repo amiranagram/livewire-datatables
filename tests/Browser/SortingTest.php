@@ -1,17 +1,17 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests\Browser\Sorting;
+namespace Amirami\LivewireDataTables\Tests\Browser;
 
-use Amirami\LivewireDataTables\Tests\Browser\TestCase;
+use Amirami\LivewireDataTables\Tests\Browser\Components\Sorting;
 use Livewire\Livewire;
 
-class Test extends TestCase
+class SortingTest extends TestCase
 {
     /** @test */
     public function it_sorts_data_by_message_column(): void
     {
         $this->browse(function ($browser) {
-            Livewire::visit($browser, Component::class)
+            Livewire::visit($browser, Sorting::class)
                 ->assertSee('Hello 2')
                 ->assertDontSee('Hello 1')
 

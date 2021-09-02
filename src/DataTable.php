@@ -17,7 +17,7 @@ abstract class DataTable extends Component implements ComputesProperties
      */
     public function getEntriesProperty()
     {
-        if ($this->hasLivewireDataTablesTrait('search')) {
+        if ($this->hasLivewireDataTablesTrait('searching')) {
             $this->applySearching($this->query);
         }
 
@@ -39,6 +39,7 @@ abstract class DataTable extends Component implements ComputesProperties
      */
     protected function getEntries()
     {
+        ray($this->query->toSql());
         if ($this->hasLivewireDataTablesTrait('pagination')) {
             return $this->applyPagination($this->query);
         }

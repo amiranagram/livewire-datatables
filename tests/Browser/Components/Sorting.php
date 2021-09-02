@@ -1,14 +1,14 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests\Browser\Sorting;
+namespace Amirami\LivewireDataTables\Tests\Browser\Components;
 
 use Amirami\LivewireDataTables\DataTable;
+use Amirami\LivewireDataTables\Tests\Browser\Models\Comment;
 use Amirami\LivewireDataTables\Traits\WithSorting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\View as ViewFacade;
 
-class Component extends DataTable
+class Sorting extends DataTable
 {
     use WithSorting;
 
@@ -29,6 +29,6 @@ class Component extends DataTable
     {
         $comments = $this->entries;
 
-        return ViewFacade::file(__DIR__.'/view.blade.php', compact('comments'));
+        return view('livewire.sorting', compact('comments'));
     }
 }

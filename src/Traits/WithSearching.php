@@ -2,7 +2,7 @@
 
 namespace Amirami\LivewireDataTables\Traits;
 
-trait WithSearch
+trait WithSearching
 {
     /**
      * @var string

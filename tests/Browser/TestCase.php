@@ -3,7 +3,7 @@
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
 use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Amirami\LivewireDataTables\Tests\Browser\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +14,6 @@ use Livewire\LivewireServiceProvider;
 use Livewire\Macros\DuskBrowserMacros;
 use Orchestra\Testbench\Dusk\Options as DuskOptions;
 use Orchestra\Testbench\Dusk\TestCase as Orchestra;
-use Sushi\Sushi;
 
 class TestCase extends Orchestra
 {
@@ -37,15 +36,13 @@ class TestCase extends Orchestra
         parent::setUp();
 
         $this->tweakApplication(function () {
-            collect(File::allFiles(__DIR__))
+            collect(File::allFiles(__DIR__ . '/Components'))
                 ->map(function ($file) {
-                    $namespacePrefix = 'Amirami\\LivewireDataTables\\Tests\\Browser\\';
+                    $namespacePrefix = 'Amirami\\LivewireDataTables\\Tests\\Browser\\Components\\';
 
-                    if (is_null($pathname = $file->getRelativePathname())) {
-                        return $namespacePrefix . Str::before('.php', '');
-                    }
-
-                    return $namespacePrefix . Str::of($pathname)->before('.php')->replace('/', '\\');
+                    return $namespacePrefix . Str::of($file->getRelativePathname())
+                            ->before('.php')
+                            ->replace('/', '\\');
                 })
                 ->filter(function ($computedClassName) {
                     return class_exists($computedClassName);
@@ -148,22 +145,4 @@ class TestCase extends Orchestra
             'root' => __DIR__ . '/downloads',
         ]);
     }
-}
-
-class User extends Authenticatable
-{
-    use Sushi;
-
-    protected $rows = [
-        [
-            'name' => 'Amir',
-            'email' => 'me@amirrami.com',
-            'password' => '',
-        ],
-        [
-            'name' => 'Bardh',
-            'email' => 'you@amirrami.com',
-            'password' => '',
-        ],
-    ];
 }

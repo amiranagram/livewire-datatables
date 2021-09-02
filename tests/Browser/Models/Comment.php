@@ -1,6 +1,6 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests\Browser\Sorting;
+namespace Amirami\LivewireDataTables\Tests\Browser\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Sushi\Sushi;
