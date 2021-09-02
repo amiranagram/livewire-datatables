@@ -3,8 +3,6 @@
 namespace Amirami\LivewireDataTables\Traits;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Livewire\WithPagination as WithLivewirePagination;
 
 trait WithPagination
@@ -31,7 +29,7 @@ trait WithPagination
     }
 
     /**
-     * @param Builder|QueryBuilder $query
+     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
      * @return LengthAwarePaginator
      */
     public function applyPagination($query): LengthAwarePaginator

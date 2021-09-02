@@ -2,14 +2,32 @@
 
 namespace Amirami\LivewireDataTables\Traits;
 
+use Illuminate\Support\Collection;
+use Livewire\Exceptions\PropertyNotFoundException;
+
+/**
+ * @property array $sorts
+ */
 trait WithSorting
 {
     /**
-     * @var array
+     * @return void
+     * @throws PropertyNotFoundException
      */
-    public $sorts = [
-        //
-    ];
+    public function mountWithSorting(): void
+    {
+        if (! property_exists($this, 'sorts')) {
+            throw new PropertyNotFoundException('sorts', static::getName());
+        }
+
+        if (method_exists($this, 'getSorts')) {
+            $this->sorts = $this->getSorts();
+        }
+
+        if (is_null($this->sorts)) {
+            $this->sorts = [];
+        }
+    }
 
     /**
      * @return bool
@@ -22,51 +40,33 @@ trait WithSorting
     }
 
     /**
-     * @param $field
+     * @param string $field
+     * @param string|null $dir
      * @return void
      */
-    public function sortBy($field): void
+    public function sortBy(string $field, ?string $dir = null): void
     {
-        if (! isset($this->sorts[$field])) {
-            if (! $this->getMultiColumnSorting()) {
-                $this->reset('sorts');
-            }
+        $currentFieldDir = $this->sorts[$field] ?? null;
 
-            $this->sorts[$field] = 'asc';
-            $this->resetPageIfPossible();
-
-            return;
-        }
-
-        if ($this->sorts[$field] === 'asc') {
-            if (! $this->getMultiColumnSorting()) {
-                $this->reset('sorts');
-            }
-
-            $this->sorts[$field] = 'desc';
-            $this->resetPageIfPossible();
-
-            return;
-        }
-
-        if ($this->sorts[$field] === 'desc' && ! $this->getMultiColumnSorting()) {
-            $this->reset('sorts');
-
-            $this->sorts[$field] = 'asc';
-            $this->resetPageIfPossible();
-
-            return;
-        }
-
-        if ($this->getMultiColumnSorting()) {
-            $this->resetPageIfPossible();
-            unset($this->sorts[$field]);
-
-            return;
-        }
+        $this->sorts = collect($this->sorts)
+            ->filter(function () {
+                return $this->getMultiColumnSorting();
+            })
+            ->when($dir, function (Collection $sorts, $dir) use ($field) {
+                return $sorts->put($field, $dir);
+            })
+            ->when(! $dir && ! $currentFieldDir, function (Collection $sorts) use ($field) {
+                return $sorts->put($field, 'asc');
+            })
+            ->when(! $dir && $currentFieldDir === 'asc', function (Collection $sorts) use ($field) {
+                return $sorts->put($field, 'desc');
+            })
+            ->when(! $dir && $currentFieldDir === 'desc', function (Collection $sorts) use ($field) {
+                return $sorts->forget($field);
+            })
+            ->toArray();
 
         $this->resetPageIfPossible();
-        $this->reset('sorts');
     }
 
     /**
@@ -78,7 +78,11 @@ trait WithSorting
         return $this->sorts[$column] ?? null;
     }
 
-    private function resetPageIfPossible(): void
+    /**
+     * @return void
+     * @noinspection PhpUndefinedMethodInspection
+     */
+    protected function resetPageIfPossible(): void
     {
         if ($this->isFeatureEnabled('pagination')) {
             $this->resetPage();
@@ -86,8 +90,8 @@ trait WithSorting
     }
 
     /**
-     * @param $query
-     * @return mixed
+     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      */
     public function applySorting($query)
     {

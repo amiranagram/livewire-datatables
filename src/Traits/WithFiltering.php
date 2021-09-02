@@ -6,6 +6,7 @@ use Livewire\Exceptions\PropertyNotFoundException;
 
 /**
  * @property-read int $filtersApplied
+ * @property array $filters
  */
 trait WithFiltering
 {
@@ -21,6 +22,10 @@ trait WithFiltering
 
         if (method_exists($this, 'getFilters')) {
             $this->filters = $this->getFilters();
+        }
+
+        if (is_null($this->filters)) {
+            $this->filters = [];
         }
     }
 

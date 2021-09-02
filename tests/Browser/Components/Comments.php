@@ -13,6 +13,11 @@ class Comments extends DataTable
     use WithSorting;
 
     /**
+     * @var @array
+     */
+    public $sorts;
+
+    /**
      * @var bool
      */
     public $multiColumnSorting = true;

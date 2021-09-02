@@ -15,6 +15,11 @@ class UsersIndex extends DataTable
     use WithSearching;
 
     /**
+     * @var @array
+     */
+    public $sorts;
+
+    /**
      * @var string[]
      */
     public $searchableColumns = [

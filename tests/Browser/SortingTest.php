@@ -3,6 +3,7 @@
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
 use Amirami\LivewireDataTables\Tests\Browser\Components\Comments;
+use Laravel\Dusk\Browser;
 use Livewire\Livewire;
 
 class SortingTest extends TestCase
@@ -10,7 +11,7 @@ class SortingTest extends TestCase
     /** @test */
     public function it_sorts_comments_by_message_column(): void
     {
-        $this->browse(function ($browser) {
+        $this->browse(function (Browser $browser) {
             Livewire::visit($browser, Comments::class)
                 // Without sort. Sort by ID by default.
                 ->assertSee('Repellat aut vero quo.')
@@ -38,7 +39,7 @@ class SortingTest extends TestCase
     {
         config()->set('livewire-datatables.multi_column_sorting', true);
 
-        $this->browse(function ($browser) {
+        $this->browse(function (Browser $browser) {
             Livewire::visit($browser, Comments::class)
                 // Without sort. Sort by ID by default.
                 ->assertSee('Repellat aut vero quo.')
