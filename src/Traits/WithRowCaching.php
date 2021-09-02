@@ -2,7 +2,7 @@
 
 namespace Amirami\LivewireDataTables\Traits;
 
-trait WithCachedRows
+trait WithRowCaching
 {
     /**
      * @var bool

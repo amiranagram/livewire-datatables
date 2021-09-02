@@ -25,7 +25,7 @@ abstract class DataTable extends Component implements ComputesProperties
             $this->applySorting($this->query);
         }
 
-        if ($this->hasLivewireDataTablesTrait('cached-rows')) {
+        if ($this->hasLivewireDataTablesTrait('row-caching')) {
             return $this->applyCaching(function () {
                 return $this->getEntries();
             });

@@ -5,7 +5,7 @@ namespace Amirami\LivewireDataTables\Traits;
 /**
  * @property-read int $filtersApplied
  */
-trait WithFilters
+trait WithFiltering
 {
     /**
      * @return int

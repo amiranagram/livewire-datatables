@@ -33,7 +33,7 @@ class SearchingTest extends TestCase
 
                 ->assertSee('Amir')
                 ->assertSee('Bardh')
-                ->assertDontSee('George')
+                ->assertSee('George')
             ;
         });
     }
