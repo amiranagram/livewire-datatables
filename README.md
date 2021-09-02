@@ -74,7 +74,7 @@ class PostsIndex extends DataTable
 }
 ```
 
-This is the most basic components without any datatable features. Although it is totally fine to use the datatable without any features, it kinda beats the purpose of this package. Now let's get onto the many features this package provides.
+This is the most basic component without any datatable features. Although it is totally fine to use the datatable without any features, it kinda beats the purpose of this package. Now let's get onto the many features this package provides.
 
 ### Pagination
 
