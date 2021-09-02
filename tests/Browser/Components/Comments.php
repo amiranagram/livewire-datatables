@@ -8,9 +8,14 @@ use Amirami\LivewireDataTables\Traits\WithSorting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 
-class Sorting extends DataTable
+class Comments extends DataTable
 {
     use WithSorting;
+
+    /**
+     * @var bool
+     */
+    public $multiColumnSorting = true;
 
     /**
      * @inheritDoc
@@ -29,6 +34,6 @@ class Sorting extends DataTable
     {
         $comments = $this->entries;
 
-        return view('livewire.sorting', compact('comments'));
+        return view('livewire.comments', compact('comments'));
     }
 }

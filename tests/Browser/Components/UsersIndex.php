@@ -14,6 +14,9 @@ class UsersIndex extends DataTable
     use WithSorting;
     use WithSearching;
 
+    /**
+     * @var string[]
+     */
     public $searchableColumns = [
         'name',
         'email',
@@ -37,6 +40,11 @@ class UsersIndex extends DataTable
         return User::query();
     }
 
+    /**
+     * Render the component.
+     *
+     * @return View
+     */
     public function render(): View
     {
         $users = $this->entries;
