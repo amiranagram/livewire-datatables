@@ -59,7 +59,7 @@ abstract class DataTable extends Component implements ComputesProperties
                     ->explode('\\')
                     ->last();
 
-                $callable = Str::studly('queryString' . $traitName);
+                $callable = 'queryString' . Str::studly($traitName);
 
                 if (method_exists($this, $callable)) {
                     return $this->$callable();

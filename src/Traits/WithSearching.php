@@ -12,7 +12,7 @@ trait WithSearching
     /**
      * @var array
      */
-    public $queryStringWithSearch = [
+    public $queryStringWithSearching = [
         'search' => ['except' => ''],
     ];
 
@@ -29,7 +29,7 @@ trait WithSearching
      */
     public function updatedSearch(): void
     {
-        if (property_exists($this, 'page')) {
+        if ($this->isFeatureEnabled('pagination')) {
             $this->resetPage();
         }
     }
