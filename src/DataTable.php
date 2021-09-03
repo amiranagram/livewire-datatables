@@ -61,10 +61,7 @@ abstract class DataTable extends Component implements ComputesProperties
                 return $this->isFirstPartyTrait($trait);
             })
             ->map(function ($trait) {
-                $traitName = Str::of($trait)
-                    ->explode('\\')
-                    ->last();
-
+                $traitName = Str::afterLast($trait, '\\');
                 $callable = 'queryString' . Str::studly($traitName);
 
                 if (method_exists($this, $callable)) {

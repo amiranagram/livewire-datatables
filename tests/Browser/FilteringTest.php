@@ -1,0 +1,42 @@
+<?php
+
+namespace Amirami\LivewireDataTables\Tests\Browser;
+
+use Amirami\LivewireDataTables\Tests\Components\UsersIndex;
+use Laravel\Dusk\Browser;
+use Livewire\Livewire;
+
+class FilteringTest extends TestCase
+{
+    /** @test */
+    public function it_filters_users_between_registered_at_min_and_max_dates(): void
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, UsersIndex::class)
+                ->assertSee('Amir')
+                ->assertSee('Bardh')
+                ->assertSee('George')
+                // Filter dates from
+                ->waitForLivewire()->type('@registeredAtMinDate', '2021-08-02')
+                ->assertDontSee('Amir')
+                ->assertSee('Bardh')
+                ->assertSee('George')
+                //
+                ->waitForLivewire()->type('@registeredAtMaxDate', '2021-09-02')
+                ->assertDontSee('Amir')
+                ->assertSee('Bardh')
+                ->assertDontSee('George')
+                //
+                ->waitForLivewire()->click('@clearRegisteredAtMinDate')
+                ->assertSee('Amir')
+                ->assertSee('Bardh')
+                ->assertDontSee('George')
+                //
+                ->waitForLivewire()->click('@clearRegisteredAtMaxDate')
+                ->assertSee('Amir')
+                ->assertSee('Bardh')
+                ->assertSee('George')
+            ;
+        });
+    }
+}
