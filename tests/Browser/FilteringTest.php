@@ -16,22 +16,22 @@ class FilteringTest extends TestCase
                 ->assertSee('Amir')
                 ->assertSee('Bardh')
                 ->assertSee('George')
-                // Filter dates from
+                // Filter user created from 2021-08-02.
                 ->waitForLivewire()->type('@registeredAtMinDate', '2021-08-02')
                 ->assertDontSee('Amir')
                 ->assertSee('Bardh')
                 ->assertSee('George')
-                //
+                // Filter user created from 2021-08-02 to 2021-09-02.
                 ->waitForLivewire()->type('@registeredAtMaxDate', '2021-09-02')
                 ->assertDontSee('Amir')
                 ->assertSee('Bardh')
                 ->assertDontSee('George')
-                //
+                // Clear `registered-min-date`. Filters users created to 2021-09-02.
                 ->waitForLivewire()->click('@clearRegisteredAtMinDate')
                 ->assertSee('Amir')
                 ->assertSee('Bardh')
                 ->assertDontSee('George')
-                //
+                // Clear `registered-max-date`. There are no filters left. Shows all users.
                 ->waitForLivewire()->click('@clearRegisteredAtMaxDate')
                 ->assertSee('Amir')
                 ->assertSee('Bardh')

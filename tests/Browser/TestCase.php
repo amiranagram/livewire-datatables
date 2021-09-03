@@ -3,6 +3,7 @@
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
 use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
+use Amirami\LivewireDataTables\Tests\ConfiguresApplication;
 use Amirami\LivewireDataTables\Tests\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
@@ -14,9 +15,16 @@ use Livewire\LivewireServiceProvider;
 use Livewire\Macros\DuskBrowserMacros;
 use Orchestra\Testbench\Dusk\Options as DuskOptions;
 use Orchestra\Testbench\Dusk\TestCase as Orchestra;
+use ReflectionException;
 
 class TestCase extends Orchestra
 {
+    use ConfiguresApplication;
+
+    /**
+     * @return void
+     * @throws ReflectionException
+     */
     public function setUp(): void
     {
         if (isset($_SERVER['CI'])) {
@@ -89,36 +97,6 @@ class TestCase extends Orchestra
         File::cleanDirectory(__DIR__ . '/downloads');
         File::deleteDirectory($this->livewireClassesPath());
         File::delete(app()->bootstrapPath('cache/livewire-components.php'));
-    }
-
-    /**
-     * @param string $path
-     * @return string
-     */
-    protected function livewireClassesPath(string $path = ''): string
-    {
-        return app_path('Http/Livewire' . ($path ? '/' . $path : ''));
-    }
-
-    /**
-     * @param string $path
-     * @return string
-     */
-    protected function livewireViewsPath(string $path = ''): string
-    {
-        return resource_path('views') . '/livewire' . ($path ? '/' . $path : '');
-    }
-
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     * @return string[]
-     */
-    protected function getPackageProviders($app): array
-    {
-        return [
-            LivewireServiceProvider::class,
-            LivewireDataTablesServiceProvider::class,
-        ];
     }
 
     /**
