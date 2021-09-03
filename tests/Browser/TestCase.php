@@ -3,7 +3,7 @@
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
 use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
-use Amirami\LivewireDataTables\Tests\Browser\Models\User;
+use Amirami\LivewireDataTables\Tests\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +36,9 @@ class TestCase extends Orchestra
         parent::setUp();
 
         $this->tweakApplication(function () {
-            collect(File::allFiles(__DIR__ . '/Components'))
+            collect(File::allFiles(__DIR__ . '/../Components'))
                 ->map(function ($file) {
-                    $namespacePrefix = 'Amirami\\LivewireDataTables\\Tests\\Browser\\Components\\';
+                    $namespacePrefix = 'Amirami\\LivewireDataTables\\Tests\\Components\\';
 
                     return $namespacePrefix . Str::of($file->getRelativePathname())
                             ->before('.php')
@@ -62,7 +62,7 @@ class TestCase extends Orchestra
             app('session')->put('_token', 'this-is-a-hack-because-something-about-validating-the-csrf-token-is-broken');
 
             app('config')->set('view.paths', [
-                __DIR__.'/views',
+                __DIR__ . '/../views',
                 resource_path('views'),
             ]);
         });
@@ -126,12 +126,11 @@ class TestCase extends Orchestra
      *
      * @param  \Illuminate\Foundation\Application  $app
      * @return void
-     * @noinspection StaticInvocationViaThisInspection
      */
     protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('view.paths', [
-            __DIR__ . '/views',
+            __DIR__ . '/../views',
             resource_path('views'),
         ]);
 

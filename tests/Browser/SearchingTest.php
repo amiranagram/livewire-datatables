@@ -2,7 +2,7 @@
 
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
-use Amirami\LivewireDataTables\Tests\Browser\Components\UsersIndex;
+use Amirami\LivewireDataTables\Tests\Components\UsersIndex;
 use Laravel\Dusk\Browser;
 use Livewire\Livewire;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests\Browser\Components;
+namespace Amirami\LivewireDataTables\Tests\Components;
 
 use Amirami\LivewireDataTables\DataTable;
-use Amirami\LivewireDataTables\Tests\Browser\Models\Comment;
+use Amirami\LivewireDataTables\Tests\Models\Comment;
 use Amirami\LivewireDataTables\Traits\WithSorting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;

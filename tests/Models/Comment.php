@@ -1,6 +1,6 @@
 <?php
 
-namespace Amirami\LivewireDataTables\Tests\Browser\Models;
+namespace Amirami\LivewireDataTables\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Sushi\Sushi;
