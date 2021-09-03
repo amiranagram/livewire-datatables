@@ -2,7 +2,6 @@
 
 namespace Amirami\LivewireDataTables\Tests\Browser;
 
-use Amirami\LivewireDataTables\LivewireDataTablesServiceProvider;
 use Amirami\LivewireDataTables\Tests\ConfiguresApplication;
 use Amirami\LivewireDataTables\Tests\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -11,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 use Livewire\Component;
-use Livewire\LivewireServiceProvider;
 use Livewire\Macros\DuskBrowserMacros;
 use Orchestra\Testbench\Dusk\Options as DuskOptions;
 use Orchestra\Testbench\Dusk\TestCase as Orchestra;
