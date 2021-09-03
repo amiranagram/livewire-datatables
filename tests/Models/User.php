@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $schema = [
-        'created_at' => 'dateTime'
+        'created_at' => 'dateTime',
     ];
 
     /**
@@ -24,19 +24,19 @@ class User extends Authenticatable
             'name' => 'Amir',
             'email' => 'me@amirrami.com',
             'password' => '',
-            'created_at' => '2021-08-01 00:00'
+            'created_at' => '2021-08-01 00:00',
         ],
         [
             'name' => 'Bardh',
             'email' => 'bardh@example.com',
             'password' => '',
-            'created_at' => '2021-09-01 00:00'
+            'created_at' => '2021-09-01 00:00',
         ],
         [
             'name' => 'George Orwell',
             'email' => 'george@example.com',
             'password' => '',
-            'created_at' => '2021-09-03 00:00'
+            'created_at' => '2021-09-03 00:00',
         ],
     ];
 }
