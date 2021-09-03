@@ -121,6 +121,13 @@ class TestCase extends Orchestra
         ];
     }
 
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     * @noinspection StaticInvocationViaThisInspection
+     */
     protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('view.paths', [
