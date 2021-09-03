@@ -11,20 +11,26 @@ abstract class DataTable extends Component implements ComputesProperties
 {
     use InteractsWithDataTableTraits;
 
+    public const FEATURE_PAGINATION = 'pagination';
+    public const FEATURE_SEARCHING = 'searching';
+    public const FEATURE_SORTING = 'sorting';
+    public const FEATURE_FILTERING = 'filtering';
+    public const FEATURE_ROW_CACHING = 'row-caching';
+
     /**
      * @inheritDoc
      */
     public function getEntriesProperty()
     {
-        if ($this->isFeatureEnabled('searching')) {
+        if ($this->isFeatureEnabled(self::FEATURE_SEARCHING)) {
             $this->applySearching($this->query);
         }
 
-        if ($this->isFeatureEnabled('sorting')) {
+        if ($this->isFeatureEnabled(self::FEATURE_SORTING)) {
             $this->applySorting($this->query);
         }
 
-        if ($this->isFeatureEnabled('row-caching')) {
+        if ($this->isFeatureEnabled(self::FEATURE_ROW_CACHING)) {
             return $this->applyRowCaching(function () {
                 return $this->getEntries();
             });
@@ -38,7 +44,7 @@ abstract class DataTable extends Component implements ComputesProperties
      */
     protected function getEntries()
     {
-        if ($this->isFeatureEnabled('pagination')) {
+        if ($this->isFeatureEnabled(self::FEATURE_PAGINATION)) {
             return $this->applyPagination($this->query);
         }
 

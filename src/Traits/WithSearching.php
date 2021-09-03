@@ -29,7 +29,7 @@ trait WithSearching
      */
     public function updatedSearch(): void
     {
-        if ($this->isFeatureEnabled('pagination')) {
+        if ($this->isFeatureEnabled(self::FEATURE_PAGINATION)) {
             $this->resetPage();
         }
     }

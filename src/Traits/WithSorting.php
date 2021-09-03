@@ -66,7 +66,9 @@ trait WithSorting
             })
             ->toArray();
 
-        $this->resetPageIfPossible();
+        if ($this->isFeatureEnabled(self::FEATURE_PAGINATION)) {
+            $this->resetPage();
+        }
     }
 
     /**
@@ -76,17 +78,6 @@ trait WithSorting
     public function sortDir(string $column): ?string
     {
         return $this->sorts[$column] ?? null;
-    }
-
-    /**
-     * @return void
-     * @noinspection PhpUndefinedMethodInspection
-     */
-    protected function resetPageIfPossible(): void
-    {
-        if ($this->isFeatureEnabled('pagination')) {
-            $this->resetPage();
-        }
     }
 
     /**
