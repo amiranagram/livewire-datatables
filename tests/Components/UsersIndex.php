@@ -5,6 +5,7 @@ namespace Amirami\LivewireDataTables\Tests\Components;
 use Amirami\LivewireDataTables\DataTable;
 use Amirami\LivewireDataTables\Tests\Models\User;
 use Amirami\LivewireDataTables\Traits\WithFiltering;
+use Amirami\LivewireDataTables\Traits\WithRowCaching;
 use Amirami\LivewireDataTables\Traits\WithSearching;
 use Amirami\LivewireDataTables\Traits\WithSorting;
 use Illuminate\Contracts\View\View;
@@ -16,6 +17,12 @@ class UsersIndex extends DataTable
     use WithSorting;
     use WithSearching;
     use WithFiltering;
+    use WithRowCaching;
+
+    /**
+     * @var User
+     */
+    public $user;
 
     /**
      * @var @array
@@ -39,6 +46,11 @@ class UsersIndex extends DataTable
     ];
 
     /**
+     * @var bool
+     */
+    public $rowCaching = true;
+
+    /**
      * Mount the component.
      *
      * @return void
@@ -46,6 +58,16 @@ class UsersIndex extends DataTable
     public function mount(): void
     {
         $this->sorts['name'] = 'desc';
+        $this->user = User::query()->make();
+    }
+
+    public function editUser(User $user)
+    {
+        $this->useCachedEntries();
+
+        if ($this->user->getKey() !== $user->getKey()) {
+            $this->user = $user;
+        }
     }
 
     /**

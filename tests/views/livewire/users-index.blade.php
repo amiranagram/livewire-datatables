@@ -1,4 +1,8 @@
 <div>
+    <input type="text" wire:model="user.name" dusk="userName">
+
+    <input type="text" wire:model="user.email" dusk="userEmail">
+
     @foreach($users as $user)
         <p wire:key="comment-{{ $user->id }}">{{ $user->name }}</p>
     @endforeach

@@ -50,8 +50,8 @@ trait WithRowCaching
     /**
      * @return string
      */
-    protected function getCacheKey(): string
+    public function getCacheKey(): string
     {
-        return 'data-table.' . $this->id;
+        return config('livewire-datatables.cache_key_prefix', 'data-table'). '.' . $this->id;
     }
 }

@@ -6,4 +6,6 @@ return [
 
     'row_caching' => false,
 
+    'cache_key_prefix' => 'data-table',
+
 ];
