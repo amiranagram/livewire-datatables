@@ -47,25 +47,16 @@ namespace App\Http\Livewire;
 
 use App\Models\Post;
 use Amirami\LivewireDataTables\DataTable;
-use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 
 class PostsIndex extends DataTable
 {
-    /**
-     * @inheritDoc
-     */
     public function getQueryProperty(): Builder
     {
         return Post::query();
     }
 
-    /**
-     * Render the component.
-     *
-     * @return View
-     */
-    public function render(): View
+    public function render()
     {
         $posts = $this->entries;
 
@@ -110,11 +101,7 @@ class PostsIndex extends DataTable
     // Or as a method.
     public function getPerPage(): ?int
     {
-        if (auth()->user()->name === 'Bardh') {
-            return 69;
-        }
-        
-        return $this->perPage;
+        return 42;
     }
 }
 ```
@@ -122,6 +109,57 @@ class PostsIndex extends DataTable
 For everything else about pagination check out the [Livewire's official documentation](https://laravel-livewire.com/docs/2.x/pagination).
 
 ### Searching
+
+If you want to use rows searching you have to use `WithSearching` trait, bind an input to a component property and define searchable columns. Consider the rest handled. This is how easy it is:
+
+```php
+namespace App\Http\Livewire;
+
+use Amirami\LivewireDataTables\DataTable;
+use Amirami\LivewireDataTables\Traits\WithSearching;
+
+class PostsIndex extends DataTable
+{
+    use WithSearching;
+    
+    public $searchableColumns = [
+        'title',
+        'content',
+    ];
+    
+    public function render()
+    {
+        $posts = $this->entries;
+
+        return view('livewire.posts-index', compact('posts'));
+    }
+}
+```
+
+```html
+<input wire:model="search" type="text">
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Excerpt</th>
+            <th>Author</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($posts as $post)
+            <tr>
+                <th>{{ $post->title }}</th>
+                <th>{{ $post->excerpt }}</th>
+                <th>{{ $post->user->name }}</th>
+                <th>{{ $post->status() }}</th>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+```
 
 ### Sorting
 
@@ -131,6 +169,7 @@ For everything else about pagination check out the [Livewire's official document
 
 ## Planned Features
 
+* Searching, sorting and filtering by relationship fields
 * Bulk Actions
 * Row Grouping
 * Front-end components (will most-likely be a separate package)

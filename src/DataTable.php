@@ -2,12 +2,11 @@
 
 namespace Amirami\LivewireDataTables;
 
-use Amirami\LivewireDataTables\Contracts\ComputesProperties;
 use Amirami\LivewireDataTables\Traits\InteractsWithDataTableTraits;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-abstract class DataTable extends Component implements ComputesProperties
+abstract class DataTable extends Component
 {
     use InteractsWithDataTableTraits;
 
@@ -18,7 +17,16 @@ abstract class DataTable extends Component implements ComputesProperties
     public const FEATURE_ROW_CACHING = 'row-caching';
 
     /**
-     * @inheritDoc
+     * Computed property to construct a query for paginator.
+     *
+     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\Relation
+     */
+    abstract public function getQueryProperty();
+
+    /**
+     * Computed property to execute the paginator.
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Collection
      */
     public function getEntriesProperty()
     {
@@ -40,7 +48,7 @@ abstract class DataTable extends Component implements ComputesProperties
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Collection
      */
     protected function getEntries()
     {
