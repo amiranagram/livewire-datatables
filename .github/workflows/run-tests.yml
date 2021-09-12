@@ -44,8 +44,11 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "livewire/livewire:${{ matrix.livewire }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
+      - name: Run Feature tests
+        run: vendor/bin/phpunit --testsuite Feature
+
       - name: Setup dusk/chrome
         run: vendor/bin/dusk-updater detect --no-interaction
 
-      - name: Execute tests
-        run: vendor/bin/phpunit
+      - name: Run Browser tests
+        run: vendor/bin/phpunit --testsuite Browser
