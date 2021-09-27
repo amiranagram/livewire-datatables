@@ -24,7 +24,7 @@
         "illuminate/contracts": "^8.0",
         "illuminate/database": "^8.0",
         "illuminate/support": "^8.0",
-        "livewire/livewire": "^2.0"
+        "livewire/livewire": "^2.6.7"
     },
     "require-dev": {
         "brianium/paratest": "^6.2",

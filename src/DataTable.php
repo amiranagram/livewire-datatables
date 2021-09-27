@@ -58,35 +58,4 @@ abstract class DataTable extends Component
 
         return $this->query->get();
     }
-
-    /**
-     * @return array
-     */
-    public function getQueryString()
-    {
-        return collect($this->dataTableTraits ?? [])
-            ->filter(function (string $trait) {
-                return $this->isFirstPartyTrait($trait);
-            })
-            ->map(function ($trait) {
-                $traitName = Str::afterLast($trait, '\\');
-                $callable = 'queryString' . Str::studly($traitName);
-
-                if (method_exists($this, $callable)) {
-                    return $this->$callable();
-                }
-
-                if (property_exists($this, $callable)) {
-                    return $this->$callable;
-                }
-
-                return [];
-            })
-            ->values()
-            ->mapWithKeys(function ($value) {
-                return $value;
-            })
-            ->merge(parent::getQueryString())
-            ->toArray();
-    }
 }
