@@ -3,7 +3,6 @@
 namespace Amirami\LivewireDataTables;
 
 use Amirami\LivewireDataTables\Traits\InteractsWithDataTableTraits;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 abstract class DataTable extends Component
