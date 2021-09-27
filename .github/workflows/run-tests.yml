@@ -15,7 +15,7 @@ jobs:
         os: [ubuntu-latest]
         php: [7.4, 8.0]
         laravel: [8.*]
-        livewire: [^2.3.3]
+        livewire: [^2.6.7]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 8.*
