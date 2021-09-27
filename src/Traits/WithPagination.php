@@ -10,7 +10,7 @@ trait WithPagination
     use WithLivewirePagination;
 
     protected $queryStringWithPagination = [
-        'perPage'
+        'perPage',
     ];
 
     /**
