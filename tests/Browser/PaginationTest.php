@@ -13,7 +13,24 @@ class PaginationTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, BlogPosts::class)
-
+                ->assertSee('sunt aut facere repellat provident occaecati excepturi optio reprehenderit')
+                ->assertSee('rem alias distinctio quo quis')
+                ->assertDontSee('repellendus qui recusandae incidunt voluptates tenetur qui omnis exercitationem')
+                ->assertQueryStringMissing('perPage')
+                // Select 10 users per page.
+                ->waitForLivewire()->select('@perPage', '10')
+                ->assertSelected('@perPage', '10')
+                ->assertSee('sunt aut facere repellat provident occaecati excepturi optio reprehenderit')
+                ->assertDontSee('rem alias distinctio quo quis')
+                ->assertDontSee('repellendus qui recusandae incidunt voluptates tenetur qui omnis exercitationem')
+                ->assertQueryStringHas('perPage', 10)
+                // Select 50 users per page.
+                ->waitForLivewire()->select('@perPage', '50')
+                ->assertSelected('@perPage', '50')
+                ->assertSee('sunt aut facere repellat provident occaecati excepturi optio reprehenderit')
+                ->assertSee('rem alias distinctio quo quis')
+                ->assertSee('repellendus qui recusandae incidunt voluptates tenetur qui omnis exercitationem')
+                ->assertQueryStringHas('perPage', 50)
             ;
         });
     }

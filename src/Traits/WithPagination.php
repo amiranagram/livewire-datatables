@@ -7,20 +7,43 @@ use Livewire\WithPagination as WithLivewirePagination;
 
 trait WithPagination
 {
-    use WithLivewirePagination;
+    use WithLivewirePagination {
+        queryStringWithPagination as baseQueryStringWithPagination;
+        initializeWithPagination as baseInitializeWithPagination;
+    }
 
-    protected $queryStringWithPagination = [
-        'perPage',
-    ];
+    /**
+     * @return array
+     */
+    public function queryStringWithPagination(): array
+    {
+        if ($this->getPerPage()) {
+            return array_merge($this->baseQueryStringWithPagination(), [
+                'perPage' => ['except' => $this->getPerPage()]
+            ]);
+        }
+
+        return $this->baseQueryStringWithPagination();
+    }
+
+    /**
+     * @return void
+     */
+    public function initializeWithPagination(): void
+    {
+        $this->baseInitializeWithPagination();
+
+        if ($this->getPerPage()) {
+            $this->perPage = request()->query('perPage', $this->perPage);
+        }
+    }
 
     /**
      * @return int|null
      */
     public function getPerPage(): ?int
     {
-        return property_exists($this, 'perPage')
-            ? $this->perPage
-            : null;
+        return $this->perPage ?? null;
     }
 
     /**

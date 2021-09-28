@@ -13,6 +13,11 @@ class BlogPosts extends DataTable
     use WithPagination;
 
     /**
+     * @var int
+     */
+    public $perPage = 25;
+
+    /**
      * @inheritDoc
      */
     public function getQueryProperty(): Builder
