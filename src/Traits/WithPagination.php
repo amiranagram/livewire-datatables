@@ -19,7 +19,7 @@ trait WithPagination
     {
         if ($this->getPerPage()) {
             return array_merge($this->baseQueryStringWithPagination(), [
-                'perPage' => ['except' => $this->getPerPage()]
+                'perPage' => ['except' => $this->getPerPage()],
             ]);
         }
 
