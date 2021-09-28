@@ -11,6 +11,16 @@ use Livewire\Exceptions\PropertyNotFoundException;
 trait WithFiltering
 {
     /**
+     * @return array[]
+     */
+    public function queryStringWithFiltering(): array
+    {
+        return [
+            'filters' => ['except' => $this->getFilterInitialValues()],
+        ];
+    }
+
+    /**
      * @return void
      * @throws PropertyNotFoundException
      */
@@ -74,9 +84,7 @@ trait WithFiltering
      */
     protected function isFilterDirty(string $key): bool
     {
-        $freshInstance = new static($this->id);
-
-        return $this->filters[$key] !== $freshInstance->filters[$key];
+        return $this->filters[$key] !== $this->getFilterInitialValues($key);
     }
 
     /**
@@ -86,5 +94,16 @@ trait WithFiltering
     protected function isFilterNotDirty(string $key): bool
     {
         return ! $this->isFilterDirty($key);
+    }
+
+    /**
+     * @param string|null $key
+     * @return mixed
+     */
+    protected function getFilterInitialValues(string $key = null)
+    {
+        $clone = new static($this->id);
+
+        return is_null($key) ? $clone->filters : $clone->filters[$key];
     }
 }
